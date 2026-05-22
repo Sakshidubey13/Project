@@ -1,13 +1,19 @@
-import React from "react";
-import router, { Route, Routes } from 'react-router'
-import Ragister from './pages/Ragister'
+import { Routes, Route } from "react-router-dom";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 import Home from "./pages/Home";
 
+import ProtectedRoute from "./routes/ProtectedRoute";
+
 export default function App() {
-  return <div>
+  return (
     <Routes>
-  <Route path="/register" element={<Regiter/>}/>
-  <Route path="/home" element={<Home/>}/>
+
+      <Route path="/register" element={<Register />} />
+
+      <Route path="/login" element={<Login />} />
+
+      <Route path="/" element={<ProtectedRoute> <Home /> </ProtectedRoute>}/>
     </Routes>
-  </div>;
+  );
 }
