@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 
-export  default ProtectedRoute ({ children }) {
+const ProtectedRoute = ({ children }) => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   if (!user) {
@@ -11,3 +11,4 @@ export  default ProtectedRoute ({ children }) {
   return children;
 };
 
+export default ProtectedRoute;
