@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 
-export default Home{
+export default Home () {
   const user = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
