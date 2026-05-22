@@ -1,72 +1,31 @@
-import React, { useState } from "react";
-import API from "../services/api";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 
-export default Register = () => {
+export default Home{
+  const user = useSelector((state) => state.auth.user);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const handleLogout = () => {
+    dispatch(logout());
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const res = await API.get("/users");
-
-    const userExists = res.data.find(
-      (user) => user.email === formData.email
-    );
-
-    if (userExists) {
-      alert("Email already exists");
-      return;
-    }
-
-    await API.post("/users", formData);
-
-    alert("Registration Successful");
+    localStorage.removeItem("user");
 
     navigate("/login");
   };
 
   return (
     <div>
-      <h2>Register</h2>
+      <h1>Welcome {user?.name}</h1>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          onChange={handleChange}
-        />
+      <p>Email: {user?.email}</p>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-        />
-
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-        />
-
-        <button type="submit">Register</button>
-      </form>
+      <button onClick={handleLogout}>
+        Logout
+      </button>
     </div>
   );
 };
