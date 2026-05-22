@@ -1,40 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
+import API from "../services/api";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/authSlice";
+import { useNavigate } from "react-router-dom";
 
-export default function SignIn() {
+export default Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const res = await API.get("/users");
+
+    const user = res.data.find(
+      (u) =>
+        u.email === formData.email &&
+        u.password === formData.password
+    );
+
+    if (!user) {
+      alert("Invalid Credentials");
+      return;
+    }
+
+    dispatch(login(user));
+
+    localStorage.setItem("user", JSON.stringify(user));
+
+    navigate("/");
+  };
+
   return (
     <div>
-      <div className="mb-3">
-        <label htmlFor="exampleInputEmail1" className="form-label">
-          Email address
-        </label>
+      <h2>Login</h2>
+
+      <form onSubmit={handleSubmit}>
         <input
           type="email"
-          className="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-          placeholder="johandu23@gmail.com"
+          name="email"
+          placeholder="Email"
+          onChange={handleChange}
         />
-      </div>
-      <div className="mb-3">
-        <label htmlFor="exampleInputPassword1" className="form-label">
-          Password
-        </label>
+
         <input
           type="password"
-          className="form-control"
-          id="exampleInputPassword1"
+          name="password"
+          placeholder="Password"
+          onChange={handleChange}
         />
-      </div>
-      <div className="mb-3 form-check">
-        <input
-          type="checkbox"
-          className="form-check-input"
-          id="exampleCheck1"
-        />
-      </div>
-      <button type="submit" className="btn btn-primary">
-        SignIn
-      </button>
+
+        <button type="submit">Login</button>
+      </form>
     </div>
   );
-}
+};
+
