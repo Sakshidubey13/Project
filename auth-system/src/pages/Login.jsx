@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import API from "../services/api";
 import { useDispatch } from "react-redux";
-import { login } from "../redux/authSlice";
+import { login } from "../slices/authSlice";
 import { useNavigate } from "react-router-dom";
 
-export default Login () {
+const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -67,4 +67,4 @@ export default Login () {
     </div>
   );
 };
-
+export default Login;
