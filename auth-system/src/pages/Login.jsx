@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 
-export default Login = () => {
+export default Login () {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
