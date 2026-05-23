@@ -1,18 +1,5 @@
 {
-    "users":[],
-  "SignUp": [
-    {
-      "name": "sakshi",
-      "email": "sakshdubey13@gmail.com",
-      "password": "7878787875"
-    },
-    {
-      "name": "yashika",
-      "email": "yashikadubey13@gmail.com",
-      "password": "1456237894"
-    }
-  ],
-  "SignIn": [
+  "users": [
     {
       "name": "sakshi",
       "email": "sakshdubey13@gmail.com",
